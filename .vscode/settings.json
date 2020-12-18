@@ -1,0 +1,11 @@
+{
+    "python.pythonPath": "/Users/liupeng/workspace/venv/examples/bin/python",
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "database": "${workspaceFolder:R-ERP}/db.sqlite3",
+            "name": "R-ERP"
+        }
+    ]
+}
