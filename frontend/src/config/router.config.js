@@ -14,13 +14,13 @@ export const asyncRouterMap = [
     name: 'index',
     component: BasicLayout,
     meta: { title: 'menu.home' },
-    redirect: '/dashboard/workplace',
+    redirect: '/dashboard/analysis',
     children: [
       // dashboard
       {
         path: '/dashboard',
         name: 'dashboard',
-        redirect: '/dashboard/workplace',
+        redirect: '/dashboard/analysis',
         component: RouteView,
         meta: { title: 'menu.dashboard', keepAlive: true, icon: bxAnaalyse, permission: [ 'dashboard' ] },
         children: [
@@ -29,22 +29,37 @@ export const asyncRouterMap = [
             name: 'Analysis',
             component: () => import('@/views/dashboard/Analysis'),
             meta: { title: 'menu.dashboard.analysis', keepAlive: false, permission: [ 'dashboard' ] }
-          },
+          }
           // 外部链接
+          // {
+          //   path: 'https://www.baidu.com/',
+          //   name: 'Monitor',
+          //   meta: { title: 'menu.dashboard.monitor', target: '_blank' }
+          // },
+          // {
+          //   path: '/dashboard/workplace',
+          //   name: 'Workplace',
+          //   component: () => import('@/views/dashboard/Workplace'),
+          //   meta: { title: 'menu.dashboard.workplace', keepAlive: true, permission: [ 'dashboard' ] }
+          // }
+        ]
+      },
+      // 订单管理页
+      {
+        path: '/form',
+        redirect: '/form/base-form',
+        component: RouteView,
+        meta: { title: '订单管理页', icon: 'form', permission: [ 'form' ] },
+        children: [
           {
-            path: 'https://www.baidu.com/',
-            name: 'Monitor',
-            meta: { title: 'menu.dashboard.monitor', target: '_blank' }
-          },
-          {
-            path: '/dashboard/workplace',
-            name: 'Workplace',
-            component: () => import('@/views/dashboard/Workplace'),
-            meta: { title: 'menu.dashboard.workplace', keepAlive: true, permission: [ 'dashboard' ] }
+            path: '/form/waybill-form',
+            name: 'WaybillForm',
+            component: () => import('@/views/form/waybillForm/WaybillForm'),
+            meta: { title: '运单管理', keepAlive: true, permission: [ 'form' ] }
           }
         ]
       },
-
+      /*
       // forms
       {
         path: '/form',
@@ -72,7 +87,8 @@ export const asyncRouterMap = [
           }
         ]
       },
-
+      */
+      /*
       // list
       {
         path: '/list',
@@ -129,7 +145,8 @@ export const asyncRouterMap = [
           }
         ]
       },
-
+      */
+      /*
       // profile
       {
         path: '/profile',
@@ -152,6 +169,7 @@ export const asyncRouterMap = [
           }
         ]
       },
+      */
 
       // result
       {
@@ -203,8 +221,9 @@ export const asyncRouterMap = [
             meta: { title: '500', permission: [ 'exception' ] }
           }
         ]
-      },
+      }
 
+      /*
       // account
       {
         path: '/account',
@@ -261,7 +280,7 @@ export const asyncRouterMap = [
           }
         ]
       }
-
+      */
       // other
       /*
       {

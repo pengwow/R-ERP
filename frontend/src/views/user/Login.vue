@@ -114,7 +114,7 @@
 </template>
 
 <script>
-import md5 from 'md5'
+// import md5 from 'md5'
 import TwoStepCaptcha from '@/components/tools/TwoStepCaptcha'
 import { mapActions } from 'vuex'
 import { timeFix } from '@/utils/util'
@@ -189,9 +189,15 @@ export default {
           const loginParams = { ...values }
           delete loginParams.username
           loginParams[!state.loginType ? 'email' : 'username'] = values.username
-          loginParams.password = md5(values.password)
+          // loginParams.password = md5(values.password)
           Login(loginParams)
-            .then((res) => this.loginSuccess(res))
+            .then(res => {
+              // console.log(res.result.captcha)
+              // console.log(res.body)
+              // console.log('2222222')
+              this.loginSuccess(res)
+            }
+            )
             .catch(err => this.requestFailed(err))
             .finally(() => {
               state.loginBtn = false
@@ -247,7 +253,7 @@ export default {
       })
     },
     loginSuccess (res) {
-      console.log(res)
+      // console.log(res.result)
       // check res.homePage define, set $router.push name res.homePage
       // Why not enter onComplete
       /*
@@ -270,6 +276,7 @@ export default {
       this.isLoginError = false
     },
     requestFailed (err) {
+      console.log('Error!')
       this.isLoginError = true
       this.$notification['error']({
         message: '错误',

@@ -102,15 +102,24 @@ const vueConfig = {
 
   devServer: {
     // development server port 8010
-    port: 8010
+    port: 8010,
     // If you want to turn on the proxy, please remove the mockjs /src/main.jsL11
-    // proxy: {
-    //   '/api': {
-    //     target: 'https://mock.ihx.me/mock/5baf3052f7da7e07e04a5116/antd-pro',
-    //     ws: false,
-    //     changeOrigin: true
-    //   }
-    // }
+    proxy: {
+      '/api': {
+        // 后台接口域名
+        target: 'http://127.0.0.1:8000/', // 'https://mock.ihx.me/mock/5baf3052f7da7e07e04a5116/antd-pro',
+        // 如果是https接口，需要配置这个参数
+        secure: false,
+        // 如果要代理 websockets，配置这个参数
+        ws: false,
+        // 是否跨域
+        changeOrigin: true,
+        // 重写地址
+        pathRewrite: {
+          '^/api': ''
+        }
+      }
+    }
   },
 
   // disable source map in production
