@@ -46,15 +46,15 @@ export const asyncRouterMap = [
       },
       // 订单管理页
       {
-        path: '/form',
-        redirect: '/form/base-form',
+        path: '/orders',
+        redirect: '/orders/waybill-form',
         component: RouteView,
         meta: { title: '订单管理页', icon: 'form', permission: [ 'form' ] },
         children: [
           {
-            path: '/form/waybill-form',
+            path: '/orders/waybill-form',
             name: 'WaybillForm',
-            component: () => import('@/views/form/waybillForm/WaybillForm'),
+            component: () => import('@/views/orders/waybill/WaybillForm'),
             meta: { title: '运单管理', keepAlive: true, permission: [ 'form' ] }
           }
         ]

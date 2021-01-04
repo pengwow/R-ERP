@@ -23,6 +23,9 @@ const constantRouterComponents = {
   'StepForm': () => import('@/views/form/stepForm/StepForm'),
   'AdvanceForm': () => import('@/views/form/advancedForm/AdvancedForm'),
 
+  // order页
+  'SearchForm': () => import('@/views/orders/waybillForm/SearchForm'),
+
   // list
   'TableList': () => import('@/views/list/TableList'),
   'StandardList': () => import('@/views/list/BasicList'),

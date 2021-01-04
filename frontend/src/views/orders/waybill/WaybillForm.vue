@@ -48,7 +48,7 @@
     </a-card> -->
 
     <!-- fixed footer toolbar -->
-    <footer-tool-bar :is-mobile="isMobile" :collapsed="sideCollapsed">
+    <!-- <footer-tool-bar :is-mobile="isMobile" :collapsed="sideCollapsed">
       <span class="popover-wrapper">
         <a-popover title="表单校验信息" overlayClassName="antd-pro-pages-forms-style-errorPopover" trigger="click" :getPopupContainer="trigger => trigger.parentNode">
           <template slot="content">
@@ -64,7 +64,10 @@
         </a-popover>
       </span>
       <a-button type="primary" @click="validate" :loading="loading">提交</a-button>
-    </footer-tool-bar>
+    </footer-tool-bar> -->
+    <div class="search-result-list">
+      <waybill-table></waybill-table>
+    </div>
   </page-header-wrapper>
 </template>
 
@@ -74,7 +77,8 @@
 import TaskForm from './TaskForm'
 import FooterToolBar from '@/components/FooterToolbar'
 import { baseMixin } from '@/store/app-mixin'
-import SearchForm from './SearchForm.vue'
+import SearchForm from './SearchForm'
+import WaybillTable from './WaybillTable'
 
 const fieldLabels = {
   name: '仓库名',
@@ -97,7 +101,8 @@ export default {
   components: {
     FooterToolBar,
     TaskForm,
-    SearchForm
+    SearchForm,
+    WaybillTable
   },
   data () {
     return {
@@ -323,4 +328,13 @@ export default {
       font-size: 12px;
     }
   }
+  .search-result-list {
+  margin-top: 16px;
+  border: 1px dashed #e9e9e9;
+  border-radius: 6px;
+  background-color: #fafafa;
+  min-height: 200px;
+  text-align: center;
+  padding-top: 10px;
+}
 </style>
