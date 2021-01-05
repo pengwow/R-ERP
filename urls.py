@@ -20,5 +20,7 @@ from usermanage import views as usermanage_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/login', usermanage_views.login, name='登录'),
+    path('auth/2step-code', usermanage_views.twofactor, name='二次验证'),
     path('auth/logout', usermanage_views.logout, name='注销'),
+    path('user/info', usermanage_views.user_info, name='用户信息'),
 ]

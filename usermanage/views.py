@@ -1,4 +1,5 @@
 import json
+import random
 from django.shortcuts import render, redirect
 from django.contrib import auth
 from django.http import HttpResponse, JsonResponse
@@ -31,6 +32,13 @@ def logout(request):
     redirect('user/login')
     return render_json("注销成功")
 
+@csrf_exempt
+def twofactor(request):
+    result = dict(stepCode=random.randint(0,1))
+    return render_json(result)
 
 
-
+def user_info(request):
+    from .temp import get_role, user_info
+    userinfo = user_info()
+    return render_json(userinfo,"用户信息")
