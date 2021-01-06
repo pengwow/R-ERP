@@ -66,7 +66,7 @@
       <a-button type="primary" @click="validate" :loading="loading">提交</a-button>
     </footer-tool-bar> -->
     <div class="search-result-list">
-      <waybill-table></waybill-table>
+      <waybill-table :tableData="tableData"></waybill-table>
     </div>
   </page-header-wrapper>
 </template>
@@ -94,6 +94,29 @@ const fieldLabels = {
   dateRange2: '生效日期',
   type2: '任务类型'
 }
+const tableData = [
+  {
+    key: 1,
+    name: 'John Brown',
+    age: 32,
+    address: 'New York No. 1 Lake Park',
+    description: 'My name is John Brown, I am 32 years old, living in New York No. 1 Lake Park.'
+  },
+  {
+    key: 2,
+    name: 'Jim Green',
+    age: 42,
+    address: 'London No. 1 Lake Park',
+    description: 'My name is Jim Green, I am 42 years old, living in London No. 1 Lake Park.'
+  },
+  {
+    key: 3,
+    name: 'Joe Black',
+    age: 32,
+    address: 'Sidney No. 1 Lake Park',
+    description: 'My name is Joe Black, I am 32 years old, living in Sidney No. 1 Lake Park.'
+  }
+]
 
 export default {
   name: 'AdvancedForm',
@@ -108,7 +131,7 @@ export default {
     return {
       loading: false,
       memberLoading: false,
-
+      tableData,
       // table
       columns: [
         {
