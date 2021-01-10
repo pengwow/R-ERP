@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from usermanage import views as usermanage_views
+from orders import views as orders_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -23,4 +24,7 @@ urlpatterns = [
     path('auth/2step-code', usermanage_views.twofactor, name='二次验证'),
     path('auth/logout', usermanage_views.logout, name='注销'),
     path('user/info', usermanage_views.user_info, name='用户信息'),
+
+    # 订单接口
+    path('orders/upload_report', orders_views.upload_report, name='导入报表'),
 ]

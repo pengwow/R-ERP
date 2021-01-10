@@ -9,3 +9,6 @@ def render_json(result,message='',code=0,timestamp=None):
         timestamp = time.clock()
     re = dict(result=result,message=message,code=code,timestamp=timestamp)
     return JsonResponse(re)
+
+def get_storage_path():
+    return './'

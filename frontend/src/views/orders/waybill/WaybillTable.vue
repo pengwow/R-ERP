@@ -1,42 +1,12 @@
 <template>
   <a-table :columns="columns" :data-source="tableData">
-    <a slot="action" slot-scope="" href="javascript:;">Delete</a>
+    <a slot="action" slot-scope="" href="javascript:;">详情</a>
     <p slot="expandedRowRender" slot-scope="record" style="margin: 0">
       {{ record.description }}
     </p>
   </a-table>
 </template>
 <script>
-// const columns = [
-//   { title: 'Name', dataIndex: 'name', key: 'name' },
-//   { title: 'Age', dataIndex: 'age', key: 'age' },
-//   { title: 'Address', dataIndex: 'address', key: 'address' },
-//   { title: 'Action', dataIndex: '', key: 'x', scopedSlots: { customRender: 'action' } }
-// ]
-
-// const data = [
-//   {
-//     key: 1,
-//     name: 'John Brown',
-//     age: 32,
-//     address: 'New York No. 1 Lake Park',
-//     description: 'My name is John Brown, I am 32 years old, living in New York No. 1 Lake Park.'
-//   },
-//   {
-//     key: 2,
-//     name: 'Jim Green',
-//     age: 42,
-//     address: 'London No. 1 Lake Park',
-//     description: 'My name is Jim Green, I am 42 years old, living in London No. 1 Lake Park.'
-//   },
-//   {
-//     key: 3,
-//     name: 'Joe Black',
-//     age: 32,
-//     address: 'Sidney No. 1 Lake Park',
-//     description: 'My name is Joe Black, I am 32 years old, living in Sidney No. 1 Lake Park.'
-//   }
-// ]
 
 export default {
   props: {
@@ -45,10 +15,14 @@ export default {
       required: true,
       default: function () {
                 return [
-        { title: 'Name', dataIndex: 'name', key: 'name' },
-        { title: 'Age', dataIndex: 'age', key: 'age' },
-        { title: 'Address', dataIndex: 'address', key: 'address' },
-        { title: 'Action', dataIndex: '', key: 'x', scopedSlots: { customRender: 'action' } }
+        { title: '订单号', dataIndex: 'name', key: 'name' },
+        { title: '图片', dataIndex: 'image', key: 'image' },
+        { title: '销售编号', dataIndex: 'age', key: 'age' },
+        { title: '金额', dataIndex: 'address', key: 'address' },
+        { title: '成本', dataIndex: 'chenben', key: 'x' },
+        { title: '利润', dataIndex: 'lirun', key: 'y' },
+        { title: '采购单', dataIndex: 'caigoudan', key: 'z' },
+        { title: '操作', dataIndex: 'action1', key: 'w', scopedSlots: { customRender: 'action' } }
       ]
             }
     },

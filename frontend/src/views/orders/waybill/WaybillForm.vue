@@ -1,71 +1,22 @@
 <template>
   <page-header-wrapper content="运单管理页面描述：xxxxxxx">
     <search-form></search-form>
-    <!-- table -->
-    <!-- <a-card>
-      <a-table
-        :columns="columns"
-        :dataSource="data"
-        :pagination="false"
-        :loading="memberLoading"
-      >
-        <template v-for="(col, i) in ['name', 'workId', 'department']" :slot="col" slot-scope="text, record">
-          <a-input
-            :key="col"
-            v-if="record.editable"
-            style="margin: -5px 0"
-            :value="text"
-            :placeholder="columns[i].title"
-            @change="e => handleChange(e.target.value, record.key, col)"
-          />
-          <template v-else>{{ text }}</template>
-        </template>
-        <template slot="operation" slot-scope="text, record">
-          <template v-if="record.editable">
-            <span v-if="record.isNew">
-              <a @click="saveRow(record)">添加</a>
-              <a-divider type="vertical" />
-              <a-popconfirm title="是否要删除此行？" @confirm="remove(record.key)">
-                <a>删除</a>
-              </a-popconfirm>
-            </span>
-            <span v-else>
-              <a @click="saveRow(record)">保存</a>
-              <a-divider type="vertical" />
-              <a @click="cancel(record.key)">取消</a>
-            </span>
-          </template>
-          <span v-else>
-            <a @click="toggle(record.key)">编辑</a>
-            <a-divider type="vertical" />
-            <a-popconfirm title="是否要删除此行？" @confirm="remove(record.key)">
-              <a>删除</a>
-            </a-popconfirm>
-          </span>
-        </template>
-      </a-table>
-      <a-button style="width: 100%; margin-top: 16px; margin-bottom: 8px" type="dashed" icon="plus" @click="newMember">新增成员</a-button>
-    </a-card> -->
-
-    <!-- fixed footer toolbar -->
-    <!-- <footer-tool-bar :is-mobile="isMobile" :collapsed="sideCollapsed">
-      <span class="popover-wrapper">
-        <a-popover title="表单校验信息" overlayClassName="antd-pro-pages-forms-style-errorPopover" trigger="click" :getPopupContainer="trigger => trigger.parentNode">
-          <template slot="content">
-            <li v-for="item in errors" :key="item.key" @click="scrollToField(item.key)" class="antd-pro-pages-forms-style-errorListItem">
-              <a-icon type="cross-circle-o" class="antd-pro-pages-forms-style-errorIcon" />
-              <div class="">{{ item.message }}</div>
-              <div class="antd-pro-pages-forms-style-errorField">{{ item.fieldLabel }}</div>
-            </li>
-          </template>
-          <span class="antd-pro-pages-forms-style-errorIcon" v-if="errors.length > 0">
-            <a-icon type="exclamation-circle" />{{ errors.length }}
-          </span>
-        </a-popover>
-      </span>
-      <a-button type="primary" @click="validate" :loading="loading">提交</a-button>
-    </footer-tool-bar> -->
     <div class="search-result-list">
+      <div class="upload-button">
+        <a-upload
+          name="file"
+          :multiple="false"
+          :action="uploadUrl"
+          :headers="headers"
+          :showUploadList="false"
+          :withCredentials="true"
+          @change="uploadFile"
+        >
+          <a-button>
+            <a-icon type="upload" /> 导入
+          </a-button>
+        </a-upload>
+      </div>
       <waybill-table :tableData="tableData"></waybill-table>
     </div>
   </page-header-wrapper>
@@ -79,7 +30,7 @@ import FooterToolBar from '@/components/FooterToolbar'
 import { baseMixin } from '@/store/app-mixin'
 import SearchForm from './SearchForm'
 import WaybillTable from './WaybillTable'
-
+// import { ordersApi } from '@/api/order'
 const fieldLabels = {
   name: '仓库名',
   url: '仓库域名',
@@ -131,6 +82,11 @@ export default {
     return {
       loading: false,
       memberLoading: false,
+      uploadUrl: process.env.VUE_APP_API_BASE_URL + '/orders/upload_report',
+      uploadkey: 'updatable',
+      headers: {
+        authorization: 'authorization-text'
+      },
       tableData,
       // table
       columns: [
@@ -249,7 +205,17 @@ export default {
         this.data = newData
       }
     },
-
+    uploadFile (info) {
+      const key = this.data.uploadkey
+      // if (info.file.status !== 'uploading') {
+      //   this.$message.loading({ content: info.file.name + '上传中...', key, duration: 1 })
+      // }
+      if (info.file.status === 'done') {
+        this.$message.success({ content: info.file.name + '上传成功!', key, duration: 2 })
+      } else if (info.file.status === 'error') {
+        this.$message.error({ content: info.file.name + '上传失败!', key, duration: 2 })
+      }
+    },
     // 最终全页面提交
     validate () {
       const { $refs: { repository, task }, $notification } = this
@@ -360,4 +326,7 @@ export default {
   text-align: center;
   padding-top: 10px;
 }
+  .upload-button{
+  text-align: right;
+  }
 </style>
