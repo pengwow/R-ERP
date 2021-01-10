@@ -9,6 +9,7 @@ from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from common.utils import render_json, get_storage_path
 from common.token import get_token, out_token
+from .models import ZYImportData
 
 # Create your views here.
 
@@ -26,8 +27,14 @@ def upload_report(request):
     data = xlrd.open_workbook(file_path)
     table = data.sheets()[0] #通过索引顺序获取
     nrows = table.nrows
-    ncols = table.ncols
-    for i in range(nrows):
-        print(table.row_values(i))
+    # ncols = table.ncols
+    title = table.row_values(0)
+    print(title)
+    for i in range(1, nrows):
+        row_dict = dict(zip(title,table.row_values(i)))
+        print(str(row_dict))
+        # model_data = row_dict
+        # ZYImportData(**model_data)
+        # print(table.row_values(i))
     # raise Exception("1111")
     return render_json({},"导入成功！")
