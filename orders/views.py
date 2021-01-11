@@ -30,11 +30,33 @@ def upload_report(request):
     # ncols = table.ncols
     title = table.row_values(0)
     print(title)
+    zy_obj = ZYImportData()
+    models_dict = zy_obj.get_models_dict()
     for i in range(1, nrows):
         row_dict = dict(zip(title,table.row_values(i)))
-        print(str(row_dict))
+        new_dict = dict()
+        for k, v in row_dict.items():
+            new_key = models_dict.get(k)
+            new_dict[new_key] = v
+        print(new_dict)
+        ZYImportData.objects.update_or_create(id=new_dict.get('id'),defaults=new_dict)
+        # print(str(row_dict))
         # model_data = row_dict
         # ZYImportData(**model_data)
         # print(table.row_values(i))
-    # raise Exception("1111")
+
+    print(ZYImportData._meta.get_field('refund').help_text)
+    print(ZYImportData().get_models_dict())
     return render_json({},"导入成功！")
+
+@csrf_exempt
+def get_list(request):
+    params = request.GET
+    if params:
+        zy_obj = ZYImportData.objects.filter(**params)
+        for item in zy_obj:
+            paas
+        return
+
+
+    return

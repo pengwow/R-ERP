@@ -16,7 +16,6 @@ export default {
       default: function () {
                 return [
         { title: '订单号', dataIndex: 'name', key: 'name' },
-        { title: '图片', dataIndex: 'image', key: 'image' },
         { title: '销售编号', dataIndex: 'age', key: 'age' },
         { title: '金额', dataIndex: 'address', key: 'address' },
         { title: '成本', dataIndex: 'chenben', key: 'x' },

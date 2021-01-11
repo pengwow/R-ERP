@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.core.exceptions import FieldDoesNotExist
 # Create your models here.
 # class Orders(models.Model):
 #     name = models.CharField(max_length=20)
@@ -43,6 +43,21 @@ class ZYImportData(models.Model):
     state = models.CharField(max_length=16,blank=True,help_text="州省")
     postcode = models.CharField(max_length=16,blank=True,help_text="邮编")
     address = models.CharField(max_length=128,blank=True,help_text="地址")
+
+    def get_models_dict(self):
+        """
+        docstring
+        """
+        result = dict()
+        for item in self.__dict__:
+            help_text = ''
+            try:
+                help_text = self._meta.get_field(item).help_text
+                # print(item)
+            except FieldDoesNotExist:
+                continue
+            result[help_text] = item
+        return result
 
     class Meta:
         db_table = "zy_import_data"
