@@ -3,8 +3,24 @@
 ## 创建django项目
 
 `django-admin startpoject backend R-ERP`
-### 创建sqlite3数据库
-`touch db.sqlite3`
+### 使用docker创建mysql数据库
+`docker pull mysql`
+`docker run --name some-mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD='123456' -d mysql`
+### 修改 settings.py, 添加修改数据库链接
+```python
+import pymysql
+pymysql.install_as_MySQLdb()
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'R-ERP',
+        'USER': 'root',
+        'PASSWORD': '123456',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
+    }
+}
+```
 `python manage.py migrate`
 ```text
 Operations to perform:

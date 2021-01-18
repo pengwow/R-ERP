@@ -3,6 +3,7 @@ import json
 import random
 import uuid
 import xlrd
+from datetime import datetime
 from django.shortcuts import render, redirect
 from django.contrib import auth
 from django.http import HttpResponse, JsonResponse
@@ -29,7 +30,7 @@ def upload_report(request):
     nrows = table.nrows
     # ncols = table.ncols
     title = table.row_values(0)
-    print(title)
+    # print(title)
     zy_obj = ZYImportData()
     models_dict = zy_obj.get_models_dict()
     for i in range(1, nrows):
@@ -37,16 +38,19 @@ def upload_report(request):
         new_dict = dict()
         for k, v in row_dict.items():
             new_key = models_dict.get(k)
-            new_dict[new_key] = v
-        print(new_dict)
-        ZYImportData.objects.update_or_create(id=new_dict.get('id'),defaults=new_dict)
-        # print(str(row_dict))
-        # model_data = row_dict
-        # ZYImportData(**model_data)
-        # print(table.row_values(i))
-
-    print(ZYImportData._meta.get_field('refund').help_text)
-    print(ZYImportData().get_models_dict())
+            if new_key:
+                new_dict[new_key] = v
+        if new_dict.get('datetime',''):
+            new_dict['datetime'] = datetime.strptime(new_dict.get('datetime',''),'%Y/%m/%d')
+        if new_dict.get('id'):
+            try:
+                zy_obj = ZYImportData(**new_dict)
+                zy_obj.save()
+            except Exception as e:
+                print(e)
+                print(new_dict)
+    # print(ZYImportData._meta.get_field('refund').help_text)
+    # print(ZYImportData().get_models_dict())
     return render_json({},"导入成功！")
 
 @csrf_exempt
