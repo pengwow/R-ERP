@@ -15,12 +15,12 @@ export default {
       required: true,
       default: function () {
                 return [
-        { title: '订单号', dataIndex: 'name', key: 'name' },
-        { title: '销售编号', dataIndex: 'age', key: 'age' },
-        { title: '金额', dataIndex: 'address', key: 'address' },
-        { title: '成本', dataIndex: 'chenben', key: 'x' },
-        { title: '利润', dataIndex: 'lirun', key: 'y' },
-        { title: '采购单', dataIndex: 'caigoudan', key: 'z' },
+        { title: '订单号', dataIndex: 'no', key: 'no' },
+        { title: '时间', dataIndex: 'datetime', key: 'datetime' },
+        { title: '金额', dataIndex: 'price', key: 'price' },
+        { title: '成本', dataIndex: 'cost', key: 'cost' },
+        { title: '利润', dataIndex: 'profit', key: 'profit' },
+        { title: '业务员', dataIndex: 'business_manager', key: 'business_manager' },
         { title: '操作', dataIndex: 'action1', key: 'w', scopedSlots: { customRender: 'action' } }
       ]
             }

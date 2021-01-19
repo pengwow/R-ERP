@@ -26,5 +26,6 @@ urlpatterns = [
     path('user/info', usermanage_views.user_info, name='用户信息'),
 
     # 订单接口
+     path('orders/list', orders_views.get_list, name='获取订单列表'),
     path('orders/upload_report', orders_views.upload_report, name='导入报表'),
 ]

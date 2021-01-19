@@ -192,9 +192,7 @@ export default {
           // loginParams.password = md5(values.password)
           Login(loginParams)
             .then(res => {
-              // console.log(res.result.captcha)
               // console.log(res.body)
-              // console.log('2222222')
               this.loginSuccess(res)
             }
             )

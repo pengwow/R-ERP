@@ -43,18 +43,19 @@
   </div>
 </template>
 <script>
+import { getOrderList } from '@/api/order'
 export default {
   data () {
     return {
       expand: false,
       form: this.$form.createForm(this, { name: 'advanced_search' }),
       searchItem: [
-        { 'id': 'PK', 'name': '订单单号', 'display': 'block', 'required': true },
+        { 'id': 'PK', 'name': '订单单号', 'display': 'block', 'required': false },
         { 'id': 'PK3', 'name': '采购单号', 'display': 'block', 'required': false },
-        { 'id': 'PK1', 'name': '转运单号', 'display': 'block', 'required': true },
-        { 'id': 'PK1', 'name': '货品型号', 'display': 'block', 'required': true },
-        { 'id': 'PK1', 'name': '货品颜色', 'display': 'block', 'required': true },
-        { 'id': 'PK2', 'name': '货单号', 'display': 'none', 'required': true }
+        { 'id': 'PK1', 'name': '转运单号', 'display': 'block', 'required': false },
+        { 'id': 'PK1', 'name': '货品型号', 'display': 'block', 'required': false },
+        { 'id': 'PK1', 'name': '货品颜色', 'display': 'block', 'required': false },
+        { 'id': 'PK2', 'name': '货单号', 'display': 'none', 'required': false }
       ]
     }
   },
@@ -73,6 +74,7 @@ export default {
         console.log('error', error)
         console.log('Received values of form: ', values)
       })
+      getOrderList()
     },
 
     handleReset () {

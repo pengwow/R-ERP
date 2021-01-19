@@ -17,7 +17,7 @@ class ZYImportData(models.Model):
     source = models.CharField(max_length=32,blank=True,null=True,help_text="来源") # verbose_name="Account source",
     currency = models.CharField(max_length=16,blank=True,null=True,help_text="币种") # verbose_name="Currency",
     price = models.FloatField(blank=True,null=True,help_text="金额") # verbose_name="amount of money"
-    cost = models.FloatField(blank=True,null=True,help_text="费用") # verbose_name="production cost",
+    cost = models.FloatField(blank=True,null=True,help_text="成本") # verbose_name="production cost",
     refund = models.FloatField(blank=True,null=True,help_text="费用") # verbose_name="drawback refund reimburse",
     income = models.FloatField(blank=True,null=True,help_text="人民币收入")
     purchasing_cost = models.FloatField(blank=True,null=True,help_text="采购成本")

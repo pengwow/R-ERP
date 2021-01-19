@@ -4,6 +4,7 @@ import random
 import uuid
 import xlrd
 from datetime import datetime
+from django.forms.models import model_to_dict
 from django.shortcuts import render, redirect
 from django.contrib import auth
 from django.http import HttpResponse, JsonResponse
@@ -56,11 +57,11 @@ def upload_report(request):
 @csrf_exempt
 def get_list(request):
     params = request.GET
-    if params:
-        zy_obj = ZYImportData.objects.filter(**params)
-        for item in zy_obj:
-            paas
-        return
-
-
-    return
+    print(params)
+    result = list()
+    zy_objs = ZYImportData.objects.all()
+    for item in zy_objs:
+        zy_dict = model_to_dict(item)
+        result.append(zy_dict)
+    # TODO: 分页
+    return render_json(result,"获取数据完成")

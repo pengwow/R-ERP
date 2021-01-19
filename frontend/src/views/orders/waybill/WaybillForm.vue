@@ -30,7 +30,8 @@ import FooterToolBar from '@/components/FooterToolbar'
 import { baseMixin } from '@/store/app-mixin'
 import SearchForm from './SearchForm'
 import WaybillTable from './WaybillTable'
-// import { ordersApi } from '@/api/order'
+import { getOrderList } from '@/api/order'
+
 const fieldLabels = {
   name: '仓库名',
   url: '仓库域名',
@@ -45,29 +46,6 @@ const fieldLabels = {
   dateRange2: '生效日期',
   type2: '任务类型'
 }
-const tableData = [
-  {
-    key: 1,
-    name: 'John Brown',
-    age: 32,
-    address: 'New York No. 1 Lake Park',
-    description: 'My name is John Brown, I am 32 years old, living in New York No. 1 Lake Park.'
-  },
-  {
-    key: 2,
-    name: 'Jim Green',
-    age: 42,
-    address: 'London No. 1 Lake Park',
-    description: 'My name is Jim Green, I am 42 years old, living in London No. 1 Lake Park.'
-  },
-  {
-    key: 3,
-    name: 'Joe Black',
-    age: 32,
-    address: 'Sidney No. 1 Lake Park',
-    description: 'My name is Joe Black, I am 32 years old, living in Sidney No. 1 Lake Park.'
-  }
-]
 
 export default {
   name: 'AdvancedForm',
@@ -87,62 +65,36 @@ export default {
       headers: {
         authorization: 'authorization-text'
       },
-      tableData,
-      // table
-      columns: [
-        {
-          title: '成员姓名',
-          dataIndex: 'name',
-          key: 'name',
-          width: '20%',
-          scopedSlots: { customRender: 'name' }
-        },
-        {
-          title: '工号',
-          dataIndex: 'workId',
-          key: 'workId',
-          width: '20%',
-          scopedSlots: { customRender: 'workId' }
-        },
-        {
-          title: '所属部门',
-          dataIndex: 'department',
-          key: 'department',
-          width: '40%',
-          scopedSlots: { customRender: 'department' }
-        },
-        {
-          title: '操作',
-          key: 'action',
-          scopedSlots: { customRender: 'operation' }
-        }
-      ],
-      data: [
-        {
-          key: '1',
-          name: '小明',
-          workId: '001',
-          editable: false,
-          department: '行政部'
-        },
-        {
-          key: '2',
-          name: '李莉',
-          workId: '002',
-          editable: false,
-          department: 'IT部'
-        },
-        {
-          key: '3',
-          name: '王小帅',
-          workId: '003',
-          editable: false,
-          department: '财务部'
-        }
-      ],
-
+      tableData: [],
       errors: []
     }
+  },
+  // 用于数据初始化
+  created: function () {
+    const Params = { }
+    getOrderList(Params).then(res => {
+      const listData = []
+      for (const key in res.result) {
+        // console.log()
+        const dataObj = {
+          key: key,
+          no: res.result[key].no,
+          datetime: res.result[key].datetime,
+          price: res.result[key].price,
+          cost: res.result[key].cost,
+          profit: res.result[key].profit,
+          region: res.result[key].region,
+          business_manager: res.result[key].business_manager
+        }
+        listData.push(dataObj)
+      this.tableData = listData
+        // if (Object.hasOwnProperty.call(key, key)) {
+        //   const element = object[key];
+
+        // }
+      }
+      // console.log(res.result)
+    })
   },
   methods: {
     handleSubmit (e) {
