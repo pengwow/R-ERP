@@ -348,19 +348,19 @@ def get_role():
 def user_info():
     userinfo = {
     'id': '4291d7da9005377ec9aec4a71ea837f',
-    'name': '天野远子',
+    'name': '超级管理员',
     'username': 'admin',
-    'password': '',
-    'avatar': '/avatar2.jpg',
-    'status': 1,
-    'telephone': '',
-    'lastLoginIp': '27.154.74.117',
-    'lastLoginTime': 1534837621348,
-    'creatorId': 'admin',
-    'createTime': 1497160610259,
-    'merchantCode': 'TLif2btpzg079h15bk',
-    'deleted': 0,
-    'roleId': 'admin',
+    # 'password': '',
+    # 'avatar': '/avatar1.jpg',
+    # 'status': 1,
+    # 'telephone': '',
+    # 'lastLoginIp': '27.154.74.117',
+    # 'lastLoginTime': 1534837621348,
+    # 'creatorId': 'admin',
+    # 'createTime': 1497160610259,
+    # 'merchantCode': 'TLif2btpzg079h15bk',
+    # 'deleted': 0,
+    # 'roleId': 'admin',
     'role': get_role()
     }
     return userinfo

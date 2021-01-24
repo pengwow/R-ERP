@@ -9,11 +9,11 @@
           <div>
             <trend flag="up" style="margin-right: 16px;">
               <span slot="term">周同比</span>
-              ？？%
+              12%
             </trend>
             <trend flag="down">
               <span slot="term">日同比</span>
-              ？？%
+              11%
             </trend>
           </div>
           <template slot="footer">日均销售额<span>￥ 234.56</span></template>

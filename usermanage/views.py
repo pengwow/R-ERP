@@ -6,6 +6,7 @@ from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from common.utils import render_json
 from common.token import get_token, out_token
+from .services import verify_account
 
 
 # Create your views here.
@@ -13,9 +14,9 @@ from common.token import get_token, out_token
 def login(request):
     if request.method == "GET":
         return render(request, "login.html")
-    data = json.loads(request.body)
-    username = data.get("username")
-    password = data.get("password")
+    # 验证账号
+    username, password = verify_account(request)
+
     user_obj = auth.authenticate(username=username, password=password)
     if user_obj:
         auth.login(request,user_obj)
