@@ -4,9 +4,9 @@ from django.shortcuts import render, redirect
 from django.contrib import auth
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from common.utils import render_json
+from common.utils import render_json,get_ip
 from common.token import get_token, out_token
-from .services import verify_account
+from .services import verify_account,update_failnumber, reset_user
 
 
 # Create your views here.
@@ -14,9 +14,12 @@ from .services import verify_account
 def login(request):
     if request.method == "GET":
         return render(request, "login.html")
+    data = json.loads(request.body)
+    username = data.get("username")
+    password = data.get("password")
+    ip = get_ip(request)
     # 验证账号
-    username, password = verify_account(request)
-
+    username, password = verify_account(username,ip)
     user_obj = auth.authenticate(username=username, password=password)
     if user_obj:
         auth.login(request,user_obj)
@@ -24,7 +27,17 @@ def login(request):
         username=user_obj.username,
         token=get_token(user_obj.username,60))
         return render_json(result,"登录成功！")
-    return render_json({},"登录失败！")
+    else:
+        update_failnumber(username,ip)
+        return render_json({},"登录失败！")
+
+@csrf_exempt
+def reset_account(request):
+    data = json.loads(request.body)
+    username = data.get('username')
+    reset_user(username)
+    return render_json({},"重置账号完成！")
+
 
 @csrf_exempt
 def logout(request):
