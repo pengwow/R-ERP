@@ -19,7 +19,8 @@ def login(request):
     password = data.get("password")
     ip = get_ip(request)
     # 验证账号
-    username, password = verify_account(username,ip)
+    if not verify_account(username,ip):
+        return render_json({},"验证失败，超过最大失败次数")
     user_obj = auth.authenticate(username=username, password=password)
     if user_obj:
         auth.login(request,user_obj)
