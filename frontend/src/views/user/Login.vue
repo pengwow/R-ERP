@@ -191,7 +191,7 @@ export default {
           loginParams[!state.loginType ? 'email' : 'username'] = values.username
           // loginParams.password = md5(values.password)
           Login(loginParams).then(res => {
-              console.log(this.$res.message)
+              // console.log(this.$res.message)
               this.loginSuccess(res)
             })
             .catch(err => this.requestFailed(err))
