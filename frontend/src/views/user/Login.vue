@@ -191,7 +191,6 @@ export default {
           loginParams[!state.loginType ? 'email' : 'username'] = values.username
           // loginParams.password = md5(values.password)
           Login(loginParams).then(res => {
-              // console.log(this.$res.message)
               this.loginSuccess(res)
             })
             .catch(err => this.requestFailed(err))
@@ -261,6 +260,16 @@ export default {
         })
       })
       */
+     if (res.code !== 0) {
+       setTimeout(() => {
+        this.$notification.error({
+          message: '错误',
+          description: res.message,
+          duration: 4
+        })
+      }, 1000)
+      this.isLoginError = true
+     } else {
       this.$router.push({ path: '/' })
       // 延迟 1 秒显示欢迎信息
       setTimeout(() => {
@@ -270,6 +279,7 @@ export default {
         })
       }, 1000)
       this.isLoginError = false
+     }
     },
     requestFailed (err) {
       console.log('Error!')

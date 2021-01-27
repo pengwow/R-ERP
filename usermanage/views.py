@@ -21,7 +21,7 @@ def login(request):
     # 验证账号
     status, message = verify_account(username,ip)
     if not status:
-        return render_json({}, message ,code=10001)
+        return render_json({}, message ,code=100001)
     user_obj = auth.authenticate(username=username, password=password)
     if user_obj:
         auth.login(request,user_obj)
@@ -31,7 +31,7 @@ def login(request):
         return render_json(result,"登录成功！")
     else:
         update_failnumber(username,ip)
-        return render_json({},"登录失败！")
+        return render_json({},"登录失败！",code=100002)
 
 @csrf_exempt
 def reset_account(request):
